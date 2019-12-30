@@ -21,6 +21,7 @@ class Bot:
     client_id = attr.ib()
     client_secret = attr.ib()
     limit = attr.ib(default=400)
+    disclaimer_comment = attr.ib(default="*ps: I am a bot and this action was done automatically. If there's a bug, please send a pm.*\n")
 
     done = attr.ib(init=False, factory=set)
 
@@ -56,7 +57,7 @@ class Bot:
             content = "\n\n___\n".join([
                 content,
                 f'__[Discussion](https://openreview.net/forum?id={orid})__ __[PDF](https://openreview.net/pdf?id={orid})__',
-                "ps: I am a bot. If there's a bug, please send a pm.\n"
+                self.disclaimer_comment
             ])
             return content
         except:
@@ -88,7 +89,8 @@ class Bot:
             try:
                 post.reply(message)
                 success.append(post)
-            except:
+            except Exception as e:
+                print(e)
                 pass
         
         return success
