@@ -36,8 +36,8 @@ class Bot:
         setattr(self, 'subreddit', self.reddit.subreddit(self.subreddit))
     
 
-    @staticmethod
-    def parse_openreview(post):
+    
+    def parse_openreview(self, post):
         try:
             url = post.url
             
@@ -60,8 +60,9 @@ class Bot:
                 self.disclaimer_comment
             ])
             return content
-        except:
-            return None
+        except Exception as e:
+            print(e)
+            return ""
 
     @staticmethod
     def filterOpenReviewUrls(posts):
@@ -76,15 +77,15 @@ class Bot:
     def addVisited(self, posts):
         return ((x,self.done.add(x.id))[0]  for x in posts)
 
-    @staticmethod
-    def makeReplies(posts):
-        return ((x, Bot.parse_openreview(x)) for x in posts)
+    
+    def makeReplies(self, posts):
+        return ((x, self.parse_openreview(x)) for x in posts)
 
     def postReplies(self, posts):
         posts = list(posts)
         success = []
         for post, message in posts:
-            if message=="":
+            if message=="" or message is None:
                 continue
             try:
                 post.reply(message)
