@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "open_review_abstract_bot"
-version = "0.1.2"
+version = "0.2.2"
 description = ""
 authors = ["Stelios Tymvios <solliet@protonmail.com>"]
 license = "BSD-3-Clause"
@@ -13,6 +13,8 @@ requests = "^2.22.0"
 html2text = "^2019.9.26"
 praw = "^6.4.0"
 beautifulsoup4 = "^4.8.2"
+attrs = "^19.3.0"
+lxml = "^4.4.2"
 
 [tool.poetry.dev-dependencies]
 
